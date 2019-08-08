@@ -39,7 +39,7 @@ pipeline {
             post {
                 always {
                     echo "Don't really keep the image"
-                    sh "docker image rm -f bigpaulie/simple-php-docker"
+                    sh "docker image rm -f bigpaulie/simple-php-docker:${BUILD_NUMBER}"
                 }
             }
         }
