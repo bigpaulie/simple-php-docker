@@ -30,9 +30,11 @@ pipeline {
         }
 
         stage('BDD testing') {
-            withDockerRegistry(url: 'registry.gitlab.com') {
-                withDockerContainer(args: '-v $PWD:/code -e DOCROOT=/code', image: 'dmore/docker-chrome-headless:7.1') {
-                    sh 'vendor/bin/behat'
+            steps {
+                withDockerRegistry(url: 'registry.gitlab.com') {
+                    withDockerContainer(args: '-v $PWD:/code -e DOCROOT=/code', image: 'dmore/docker-chrome-headless:7.1') {
+                        sh 'vendor/bin/behat'
+                    }
                 }
             }
         }
