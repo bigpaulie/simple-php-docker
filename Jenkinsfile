@@ -28,5 +28,20 @@ pipeline {
                 }
             }
         }
+
+        stage('Build docker image') {
+            agent {
+                label 'master'
+            }
+            steps {
+                sh "docker build -t bigpaulie/simple-php-docker:${BUILD_NUMBER}"
+            }
+            post {
+                always {
+                    echo "Don't really keep the image"
+                    sh "docker image rm -f bigpaulie/simple-php-docker"
+                }
+            }
+        }
     }
 }
