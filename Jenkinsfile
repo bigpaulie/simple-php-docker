@@ -35,6 +35,7 @@ pipeline {
             }
             steps {
                 withDockerContainer(args: '-v $PWD:/code -e DOCROOT=/code', image: 'registry.gitlab.com/dmore/docker-chrome-headless:7.1') {
+                    sh 'php -S localhost:9090'
                     sh 'vendor/bin/behat'
                 }
             }
