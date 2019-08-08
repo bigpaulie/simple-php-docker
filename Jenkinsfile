@@ -14,8 +14,18 @@ pipeline {
         }
 
         stage('Run tests') {
+            agent {
+                docker {
+                    image 'phpunit/phpunit'
+                }
+            }
             steps {
-                echo 'testing'
+                sh 'phpunit -c phpunit.xml --log-junit build/unit/junit.xml'
+                post {
+                    always {
+                        junit 'build/**/junit.xml'
+                    }
+                }
             }
         }
     }

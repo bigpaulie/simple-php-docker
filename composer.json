@@ -16,5 +16,10 @@
     "minimum-stability": "stable",
     "require": {
         "jenssegers/blade": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "bigpaulie\\simple\\": "src/"
+        }
     }
 }
