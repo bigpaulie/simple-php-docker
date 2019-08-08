@@ -20,7 +20,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'phpunit -c phpunit.xml --log-junit build/unit/junit.xml'
+                sh './vendor/bin/phpunit -c phpunit.xml --log-junit build/unit/junit.xml'
                 post {
                     always {
                         junit 'build/**/junit.xml'
