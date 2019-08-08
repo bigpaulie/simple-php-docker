@@ -16,7 +16,7 @@ pipeline {
         stage('Run tests') {
             agent {
                 docker {
-                    image 'phpunit/phpunit'
+                    image 'php:7.2-cli'
                 }
             }
             steps {
