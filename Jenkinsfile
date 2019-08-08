@@ -34,7 +34,7 @@ pipeline {
                 label 'master'
             }
             steps {
-                sh "docker build -t bigpaulie/simple-php-docker:${BUILD_NUMBER}"
+                sh "docker build -t bigpaulie/simple-php-docker:${BUILD_NUMBER} ."
             }
             post {
                 always {
