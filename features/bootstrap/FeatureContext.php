@@ -26,7 +26,7 @@ class FeatureContext implements Context
      */
     public function __construct()
     {
-        $mink = new Mink(array(
+        $this->mink = new Mink(array(
             'browser' => new Session(
                 new ChromeDriver(
                     'http://localhost:9222',
