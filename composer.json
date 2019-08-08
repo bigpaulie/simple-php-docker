@@ -1,0 +1,20 @@
+{
+    "name": "bigpaulie/simple-php-docker",
+    "description": "Simple PHP docker app",
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "^7.5",
+        "mockery/mockery": "^1.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Paul P",
+            "email": "bigpaulie25ro@yahoo.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "jenssegers/blade": "^1.2"
+    }
+}
