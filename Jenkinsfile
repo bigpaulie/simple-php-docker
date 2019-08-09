@@ -29,30 +29,14 @@ pipeline {
             }
         }
 
-        stage('BDD testing') {
-            agent {
-                label 'master'
-            }
-            steps {
-                withDockerContainer(args: '-v $PWD:/code -e DOCROOT=/code', image: 'registry.gitlab.com/dmore/docker-chrome-headless:7.1') {
-                    sh 'php -S localhost:9090'
-                    sh 'vendor/bin/behat'
-                }
-            }
-        }
-
-        stage('Build docker image') {
-            agent {
-                label 'master'
-            }
-            steps {
-                sh "docker build -t bigpaulie/simple-php-docker:${BUILD_NUMBER} ."
-            }
-            post {
-                always {
-                    echo "Don't really keep the image"
-                    sh "docker image rm -f bigpaulie/simple-php-docker:${BUILD_NUMBER}"
-                }
+        stage('Deploy to staging') {
+            def remote = [:]
+            remote.host = "${env.EC2_TEST}"
+            remote.allowAnyHosts = true
+            withCredentials([sshUserPrivateKey(credentialsId: 'chromium-php72', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'ubuntu')]) {
+                remote.user = userName
+                remote.identityFile = identity
+                sshScript remote: remote, script: 'deploy.sh'
             }
         }
     }
