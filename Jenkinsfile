@@ -1,4 +1,8 @@
 pipeline {
+    def remote = [:]
+        remote.host = "${env.EC2_TEST}"
+        remote.allowAnyHosts = true
+
     agent none
 
     stages {
@@ -30,9 +34,6 @@ pipeline {
         }
 
         stage('Deploy to staging') {
-            def remote = [:]
-            remote.host = "${env.EC2_TEST}"
-            remote.allowAnyHosts = true
             withCredentials([sshUserPrivateKey(credentialsId: 'chromium-php72', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'ubuntu')]) {
                 remote.user = userName
                 remote.identityFile = identity
