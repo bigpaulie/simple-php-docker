@@ -41,6 +41,7 @@ pipeline {
             }
             steps {
                 sh 'composer install'
+                sh 'mkdir -p build/reports/behat'
                 sh './vendor/bin/behat -f pretty -o std -f junit -o build/reports/behat'
             }
             post {
