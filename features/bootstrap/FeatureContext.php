@@ -35,6 +35,7 @@ class FeatureContext implements Context
                 )
             )
         ));
+        $this->mink->setDefaultSessionName('browser');
     }
 
     /**
