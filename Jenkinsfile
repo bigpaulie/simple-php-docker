@@ -1,9 +1,9 @@
-def remote = [:]
-    remote.host = "${env.EC2_TEST}"
-    remote.allowAnyHosts = true
-
 pipeline {
     agent none
+
+    def remote = [:]
+    remote.host = "${env.EC2_TEST}"
+    remote.allowAnyHosts = true
 
     stages {
         stage('Composer install') {
