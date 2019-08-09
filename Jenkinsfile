@@ -33,13 +33,13 @@ pipeline {
             }
         }
 
-        stage('Deploy to staging') {
-            steps {
-                withCredentials([sshUserPrivateKey(credentialsId: 'chromium-php72', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'ubuntu')]) {
-                    remote.user = userName
-                    remote.identityFile = identity
-                    sshScript remote: remote, script: 'deploy.sh'
-                }
+
+
+        withCredentials([sshUserPrivateKey(credentialsId: 'chromium-php72', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'ubuntu')]) {
+            remote.user = userName
+            remote.identityFile = identity
+            stage('Deploy to staging') {
+                sshScript remote: remote, script: 'deploy.sh'
             }
         }
     }
