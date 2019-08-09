@@ -1,5 +1,6 @@
 pipeline {
     agent none
+    cleanWs(patterns: [[pattern: 'screenshots/*.png', type: 'INCLUDE']])
 
     stages {
         stage('Composer install') {
