@@ -40,6 +40,7 @@ pipeline {
                 label 'chromium-php72'
             }
             steps {
+                sh 'composer install'
                 sh './vendor/bin/behat -f pretty -o std -f junit -o build/reports/behat'
             }
             post {
