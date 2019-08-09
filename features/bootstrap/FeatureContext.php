@@ -53,7 +53,7 @@ class FeatureContext implements Context
     public function iShouldSeeTheString($arg1)
     {
         $page = $this->mink->getSession()->getPage();
-        $text = $page->find('h1')->getText();
+        $text = $page->find('css','h1')->getText();
         /** @var ChromeDriver $driver */
         $driver = $this->mink->getSession()->getDriver();
 
