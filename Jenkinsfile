@@ -1,10 +1,6 @@
 pipeline {
     agent none
 
-    def remote = [:]
-    remote.host = "${env.EC2_TEST}"
-    remote.allowAnyHosts = true
-
     stages {
         stage('Composer install') {
             agent {
@@ -33,13 +29,9 @@ pipeline {
             }
         }
 
-
-
-        withCredentials([sshUserPrivateKey(credentialsId: 'chromium-php72', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'ubuntu')]) {
-            remote.user = userName
-            remote.identityFile = identity
-            stage('Deploy to staging') {
-                sshScript remote: remote, script: 'deploy.sh'
+        stage('Deploy to staging') {
+            steps {
+                build 'simple-php-docker-deploy'
             }
         }
     }
