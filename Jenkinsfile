@@ -1,6 +1,5 @@
 pipeline {
     agent none
-    cleanWs(patterns: [[pattern: 'screenshots/*.png', type: 'INCLUDE']])
 
     stages {
         stage('Composer install') {
@@ -49,6 +48,7 @@ pipeline {
                 always {
                     junit 'build/reports/behat/*.xml'
                     archiveArtifacts artifacts: 'screenshots/*.png', fingerprint: true
+                    cleanWs(patterns: [[pattern: 'screenshots/*.png', type: 'INCLUDE']])
                 }
             }
         }
