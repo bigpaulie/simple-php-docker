@@ -34,5 +34,20 @@ pipeline {
                 build 'simple-php-docker-deploy'
             }
         }
+
+        stage('BDD testing') {
+            agent {
+                label 'chromium-php72'
+            }
+            steps {
+                sh './vendor/bin/behat -f pretty -o std -f junit -o build/reports/behat'
+            }
+            post {
+                always {
+                    junit 'build/reports/behat/*.xml'
+                    archiveArtifacts artifacts: 'screenshots/*.png', fingerprint: true
+                }
+            }
+        }
     }
 }
