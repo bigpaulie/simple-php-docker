@@ -42,7 +42,7 @@ class FeatureContext implements Context
      */
     public function iGoToTheHomepage()
     {
-        $this->mink->getSession()->visit('http://localhost:9090');
+        $this->mink->getSession()->visit('http://ec2-35-158-224-169.eu-central-1.compute.amazonaws.com');
         return true;
     }
 
@@ -53,6 +53,14 @@ class FeatureContext implements Context
     {
         $page = $this->mink->getSession()->getPage();
         $text = $page->find('h1')->getText();
-        return strstr($text, $arg1);
+        /** @var ChromeDriver $driver */
+        $driver = $this->mink->getSession()->getDriver();
+
+        if (!strstr($text, $arg1)) {
+            $driver->captureScreenshot('./screenshots/page_error.png');
+            throw new \InvalidArgumentException('String ' . $arg1 . ' not found on the page');
+        }
+
+        $driver->captureScreenshot('./screenshots/page_success.png');
     }
 }

@@ -2,3 +2,5 @@
 vendor
 cache
 !cache/.gitkeep
+!screenshots/.gitkeep
+screenshots/*.png
