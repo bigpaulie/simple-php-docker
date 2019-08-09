@@ -1,8 +1,8 @@
-pipeline {
-    def remote = [:]
-        remote.host = "${env.EC2_TEST}"
-        remote.allowAnyHosts = true
+def remote = [:]
+    remote.host = "${env.EC2_TEST}"
+    remote.allowAnyHosts = true
 
+pipeline {
     agent none
 
     stages {
@@ -34,10 +34,12 @@ pipeline {
         }
 
         stage('Deploy to staging') {
-            withCredentials([sshUserPrivateKey(credentialsId: 'chromium-php72', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'ubuntu')]) {
-                remote.user = userName
-                remote.identityFile = identity
-                sshScript remote: remote, script: 'deploy.sh'
+            steps {
+                withCredentials([sshUserPrivateKey(credentialsId: 'chromium-php72', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'ubuntu')]) {
+                    remote.user = userName
+                    remote.identityFile = identity
+                    sshScript remote: remote, script: 'deploy.sh'
+                }
             }
         }
     }
